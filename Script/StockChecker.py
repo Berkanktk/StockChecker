@@ -125,14 +125,14 @@ while flag:
 
     if element_text.find(success_msg) != -1:
         # Performing check
-        content = 'Product in stock!'
-        subject = name + " is now in stock!"
+        subject = 'Product in stock!'
+        content = name + " is now in stock!"
         print(subject)
 
         # Sending Discord Announcement
         webhook = DiscordWebhook(
             url=DISCORD_WEBHOOK,
-            content=subject)
+            content=content)
         response = webhook.execute()
 
         # Creating and sending mail
