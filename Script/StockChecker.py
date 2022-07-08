@@ -19,6 +19,12 @@ from discord_webhook import DiscordWebhook
 
 # *************************************************************
 # TODO: Add credentials inside the .env file
+""""
+    Remember to make a copy of the .env.example file.
+    Then rename the copu from .env.example to .env
+    and begin filling out the needed values/credentials.
+"""
+
 # TODO: Insert product information below
 link = ''
 name = ''
@@ -26,16 +32,19 @@ name = ''
 # TODO: How often should a lookup be performed?
 check_timer = 3  # seconds
 
-# TODO: Email validation (See if the script is still running)
-choice = True
-validation_timer = 24  # 24 = Every 12 Hours if check_timer is 1800
-
 # TODO: What to look after
 error_msg = 'Not in stock'
 success_msg = 'Add to basket'
 
-# TODO: Add CC recipients
+# TODO: Email validation to see if the script is still running (Optional)
+validation = True
+validation_timer = 24  # 24 = Every 12 Hours if check_timer is 1800.
+
+# TODO: Add CC recipients (Optional)
 CC = ''  # Multiple recipients are seperated with a comma
+
+# TODO: Discord announcement wanted
+discord_announcement = False
 
 # *************************************************************
 # Initial lists/values
@@ -113,6 +122,16 @@ def validationWanted(user_choice):
         return False
 
 
+def discordAlert(user_choice, msg):
+    if user_choice:
+        webhook = DiscordWebhook(
+            url=DISCORD_WEBHOOK,
+            content=msg)
+        webhook.execute()
+    else:
+        print("Skipping Discord Announcement")
+
+
 flag = True
 while flag:
 
@@ -127,13 +146,10 @@ while flag:
         # Performing check
         subject = 'Product in stock!'
         content = name + " is now in stock!"
-        print(subject)
+        print(content)
 
         # Sending Discord Announcement
-        webhook = DiscordWebhook(
-            url=DISCORD_WEBHOOK,
-            content=content)
-        response = webhook.execute()
+        discordAlert(discord_announcement, content)
 
         # Creating and sending mail
         mail_sender_CC(subject, EMAIL_ADDRESS, EMAIL_ADDRESS, CC, content)
@@ -150,7 +166,7 @@ while flag:
         script_test += 1
 
         # Validator
-        if script_test >= validation_timer and validationWanted(choice):
+        if script_test >= validation_timer and validationWanted(validation):
             subject = 'StockChecker Validation Test'
             content = 'Script is still running.'
 
