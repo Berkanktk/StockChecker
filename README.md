@@ -43,3 +43,12 @@ By default the script is being run in a headless manner, meaning the chrome GUI 
 chrome_options = Options()
 chrome_options.add_argument("--headless")  # Comment out if you want to have the GUI
 ```
+
+## Hosting tips :)
+You can upload the bot to different cloud service providers by following their deployment methods.
+
+BUT, keep in mind that:
+1. Linode blocks SMTP ports
+2. Rasperry Pi's uses ARM, and that can be a pain in the ass when using the chromedriver. (There is a chromedriver for ARM though, but again it can get quite annoying.)
+3. Amazon EC2 instances should be fine, but for some reason i could not make it to work properly.
+4. Hosting it yourself. But its not optimal, so you have to do a little research yourself!
