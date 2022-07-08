@@ -21,7 +21,7 @@ from discord_webhook import DiscordWebhook
 # TODO: Add credentials inside the .env file
 """"
     Remember to make a copy of the .env.example file.
-    Then rename the copu from .env.example to .env
+    Then rename the copy from '.env.example' to '.env',
     and begin filling out the needed values/credentials.
 """
 
